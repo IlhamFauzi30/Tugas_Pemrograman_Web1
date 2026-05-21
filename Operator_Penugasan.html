@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operator Penugasan - Kasir</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .box{
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px gray;
+        }
+
+        h2{
+            color: green;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="box">
+
+        <h2>Operator Penugasan - Data Stok Kasir</h2>
+
+        <p id="hasil"></p>
+
+    </div>
+
+    <script>
+
+        // =========================
+        // DATA AWAL TOKO
+        // =========================
+
+        let stokMinuman = 100;
+        let stokMieInstan = 80;
+        let uangKasir = 500000;
+
+        // =========================
+        // OPERATOR PENUGASAN
+        // =========================
+
+        // Barang masuk
+        stokMinuman += 20;
+
+        // Barang terjual
+        stokMinuman -= 15;
+
+        // Mie instan terjual
+        stokMieInstan -= 10;
+
+        // Uang kasir bertambah karena penjualan
+        uangKasir += 150000;
+
+        // Uang digunakan membeli stok baru
+        uangKasir -= 50000;
+
+        // =========================
+        // OUTPUT KE WEB
+        // =========================
+
+        document.getElementById("hasil").innerHTML =
+
+            "===== DATA KASIR TOKO ===== <br><br>" +
+
+            "Stok Awal Minuman : 100 <br>" +
+            "Stok Awal Mie Instan : 80 <br>" +
+            "Uang Awal Kasir : 500000 <br><br>" +
+
+            "============================== <br><br>" +
+
+            "Minuman Masuk : 20 <br>" +
+
+            "Minuman Terjual : 15 <br><br>" +
+
+            "Mie Instan Terjual : 10 <br><br>" +
+
+            "Pemasukan Penjualan : 150000 <br><br>" +
+
+            "Pembelian Stok : 50000 <br><br>" +
+
+            "============================== <br><br>" +
+
+            "KESIMPULAN : <br>" +
+            "Stok akhir minuman = " + stokMinuman + "<br>" +
+            "Stok akhir mie instan = " + stokMieInstan + "<br>" +
+            "Uang akhir kasir = " + uangKasir;
+
+    </script>
+
+</body>
+</html>
