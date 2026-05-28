@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Pembanding</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #6c7b14;
+            padding: 20px;
+        }
+
+        .box{
+            background-color: rgb(250, 248, 248);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgb(91, 59, 59);
+        }
+
+        h2{
+            color: blue;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="box">
+        <h2>Operator Pembanding</h2>
+        <p id="hasil"></p>
+
+    </div>
+
+    <script>
+
+        // =========================
+        // DATA SISWA
+        // =========================
+
+        let namaSiswa = "Andi";
+        let nilaiSiswa = 82;
+        let nilaiMinimal = 75;
+        let nilaiBeasiswa = 90;
+
+        // =========================
+        // OPERATOR PEMBANDING
+        // =========================
+
+        // >= lebih besar sama dengan
+        let lulus = nilaiSiswa >= nilaiMinimal;
+
+        // > lebih besar
+        let diAtasRata = nilaiSiswa > 70;
+
+        // < lebih kecil
+        let remedial = nilaiSiswa < nilaiMinimal;
+
+        // <= lebih kecil sama dengan
+        let perluBimbingan = nilaiSiswa <= 60;
+
+        // == sama dengan
+        let tepatKKM = nilaiSiswa == nilaiMinimal;
+
+        // != tidak sama dengan
+        let tidakKosong = nilaiSiswa != 0;
+
+        // =========================
+        // OUTPUT KE WEB
+        // =========================
+
+        document.getElementById("hasil").innerHTML =
+
+            "===== DATA SISWA ===== <br><br>" +
+
+            "Nama Siswa : " + namaSiswa + "<br>" +
+            "Nilai Siswa : " + nilaiSiswa + "<br>" +
+            "Nilai Minimal : " + nilaiMinimal + "<br>" +
+            "Nilai Beasiswa : " + nilaiBeasiswa + "<br><br>" +
+
+            "============================== <br><br>" +
+
+            "1. lulus = nilaiSiswa >= nilaiMinimal <br>" +
+            nilaiSiswa + " >= " + nilaiMinimal + " = " + lulus + "<br><br>" +
+
+            "2. diAtasRata = nilaiSiswa > 70 <br>" +
+            nilaiSiswa + " > 70 = " + diAtasRata + "<br><br>" +
+
+            "3. remedial = nilaiSiswa < nilaiMinimal <br>" +
+            nilaiSiswa + " < " + nilaiMinimal + " = " + remedial + "<br><br>" +
+
+            "4. perluBimbingan = nilaiSiswa <= 60 <br>" +
+            nilaiSiswa + " <= 60 = " + perluBimbingan + "<br><br>" +
+
+            "5. tepatKKM = nilaiSiswa == nilaiMinimal <br>" +
+            nilaiSiswa + " == " + nilaiMinimal + " = " + tepatKKM + "<br><br>" +
+
+            "6. tidakKosong = nilaiSiswa != 0 <br>" +
+            nilaiSiswa + " != 0 = " + tidakKosong + "<br><br>" +
+
+            "============================== <br><br>" +
+
+            "KESIMPULAN : <br>" +
+
+            namaSiswa + " lulus = " + lulus;
+
+    </script>
+
+</body>
+</html>

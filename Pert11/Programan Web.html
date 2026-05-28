@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemrograman Web 1</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #c83c3c;
+            padding: 20px;
+        }
+
+        .box{
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px gray;
+        }
+
+        h2{
+            color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Operator Aritmatika -->
+    <div class="box">
+        <h2>1. Operator Aritmatika</h2>
+        <p id="aritmatika"></p>
+    </div>
+
+    <!-- Operator Penugasan -->
+    <div class="box">
+        <h2>2. Operator Penugasan</h2>
+        <p id="penugasan"></p>
+    </div>
+
+    <!-- Operator Pembanding -->
+    <div class="box">
+        <h2>3. Operator Pembanding</h2>
+        <p id="pembanding"></p>
+    </div>
+
+    <script>
+
+        // =========================
+        // Operator Aritmatika
+        // =========================
+        let gajiPokok = 3000000;
+        let uangLembur = 500000;
+        let bonus = 250000;
+        let potongan = 150000;
+
+        let totalGaji = gajiPokok + uangLembur + bonus - potongan;
+
+        document.getElementById("aritmatika").innerHTML =
+            "Gaji Pokok : " + gajiPokok + "<br>" +
+            "Uang Lembur : " + uangLembur + "<br>" +
+            "Bonus : " + bonus + "<br>" +
+            "Potongan : " + potongan + "<br><br>" +
+            "<b>Total Gaji : " + totalGaji + "</b>";
+
+
+
+        // =========================
+        // Operator Penugasan
+        // =========================
+        let stokBarang = 100;
+
+        stokBarang += 50;
+        stokBarang -= 30;
+
+        document.getElementById("penugasan").innerHTML =
+            "Stok awal barang adalah 100 <br>" +
+            "Barang masuk sebanyak 50 <br>" +
+            "Barang terjual sebanyak 30 <br><br>" +
+            "<b>Stok Sekarang : " + stokBarang + "</b>";
+
+
+
+        // =========================
+        // Operator Pembanding
+        // =========================
+        let nilaiSiswa = 82;
+        let nilaiMinimal = 75;
+
+        let hasil = nilaiSiswa >= nilaiMinimal;
+
+        document.getElementById("pembanding").innerHTML =
+            "Nilai Siswa : " + nilaiSiswa + "<br>" +
+            "Nilai Minimal : " + nilaiMinimal + "<br><br>" +
+            "<b>Status Kelulusan : " + hasil + "</b>";
+
+    </script>
+
+</body>
+</html>

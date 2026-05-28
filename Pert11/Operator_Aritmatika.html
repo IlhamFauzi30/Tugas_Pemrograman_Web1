@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Aritmatika</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .box{
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px gray;
+        }
+
+        h2{
+            color: blue;
+        }
+        P{
+            color: blueviolet;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h2>Operator Aritmatika</h2>
+        <p id="hasil"></p>
+
+    </div>
+
+    
+    <script>
+
+        // =========================
+        // DATA BARANG
+        // =========================
+
+        let hargaLaptop = 4500000;
+        let hargaMouse = 150000;
+        let hargaKeyboard = 350000;
+        let hargaMousePad = 100000;
+        let diskon = 500000;
+        
+        // =========================
+        // PERHITUNGAN
+        // =========================
+
+        let totalBelanja =
+            hargaLaptop +
+            hargaMouse +
+            hargaKeyboard +
+            hargaMousePad;
+
+        let totalBayar = totalBelanja - diskon;
+
+        // =========================
+        // OUTPUT KE WEB
+        // =========================
+
+
+        document.getElementById("hasil").innerHTML =
+
+            "===== TOKO KOMPUTER ===== <br><br>" +
+
+            "<b>Harga Laptop : </b>" + hargaLaptop + "<br>" +
+            "<b>Harga Mouse : </b>" + hargaMouse + "<br>" +
+            "<b>Harga Keyboard : </b>" + hargaKeyboard + "<br>" +
+            "<b>Harga Mouse Pad : </b>" + hargaMousePad + "<br><br>" +
+
+            "-------------------------- <br><br>" +
+
+            "<b>Total Belanja</b> = " +
+            hargaLaptop + " + " +
+            hargaMouse + " + " +
+            hargaKeyboard + " + " +
+            hargaMousePad + "<br>" +
+
+            "= " + totalBelanja + "<br><br>" +
+
+            "<b>Diskon</b> = " + diskon + "<br><br>" +
+
+            "<b>Total Bayar</b> = " +
+            totalBelanja + " - " + diskon + "<br>" +
+
+            "= " + totalBayar;
+
+    </script>
+
+</body>
+</html>

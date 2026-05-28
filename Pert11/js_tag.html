@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Left Shift Assignment</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .box { border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 300px; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>Combo Multiplier Game via <code>&lt;&lt;=</code></h3>
+        <p>Skor Dasar: <strong>5</strong></p>
+        <button onclick="pemicuCombo()">Dapatkan Combo Double!</button>
+        <p>Skor Sekarang: <mark id="skorGame">5</mark></p>
+    </div>
+
+    <script>
+        let skor = 5; // Biner dasar: 00000101 (5 desimal)
+
+        function pemicuCombo() {
+            // Menggeser bit ke kiri sebesar 1 digit. 
+            // Sama saja secara instan melakukan: skor = skor * 2
+            skor <<= 1; 
+
+            document.getElementById('skorGame').innerText = skor;
+        }
+    </script>
+</body>
+</html>
