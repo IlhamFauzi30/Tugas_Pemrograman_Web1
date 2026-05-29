@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Modern</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#141e30,#243b55);
+    }
+
+    .calculator{
+        width:350px;
+        background:#1f2937;
+        padding:20px;
+        border-radius:20px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .screen{
+        width:100%;
+        height:80px;
+        border:none;
+        outline:none;
+        border-radius:15px;
+        margin-bottom:20px;
+        padding:15px;
+        font-size:32px;
+        text-align:right;
+        background:#111827;
+        color:#00ff99;
+    }
+
+    .buttons{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:12px;
+    }
+
+    button{
+        height:65px;
+        border:none;
+        border-radius:15px;
+        font-size:20px;
+        cursor:pointer;
+        transition:0.2s;
+        background:#374151;
+        color:white;
+        font-weight:bold;
+    }
+
+    button:hover{
+        transform:scale(1.05);
+        background:#4b5563;
+    }
+
+    .operator{
+        background:#f59e0b;
+    }
+
+    .operator:hover{
+        background:#d97706;
+    }
+
+    .equal{
+        background:#10b981;
+        grid-column:span 2;
+    }
+
+    .equal:hover{
+        background:#059669;
+    }
+
+    .clear{
+        background:#ef4444;
+    }
+
+    .clear:hover{
+        background:#dc2626;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="screen" class="screen" readonly>
+
+    <div class="buttons">
+        <button class="clear" onclick="clearScreen()">C</button>
+        <button onclick="deleteLast()">⌫</button>
+        <button onclick="append('%')">%</button>
+        <button class="operator" onclick="append('/')">÷</button>
+
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button class="operator" onclick="append('*')">×</button>
+
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button class="operator" onclick="append('-')">−</button>
+
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button class="operator" onclick="append('+')">+</button>
+
+        <button onclick="append('0')">0</button>
+        <button onclick="append('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+
+    let screen = document.getElementById("screen");
+
+    function append(value){
+        screen.value += value;
+    }
+
+    function clearScreen(){
+        screen.value = "";
+    }
+
+    function deleteLast(){
+        screen.value = screen.value.slice(0,-1);
+    }
+
+    function calculate(){
+        try{
+            screen.value = eval(screen.value);
+        }catch{
+            screen.value = "Error";
+        }
+    }
+
+    // Keyboard Support
+    document.addEventListener("keydown", function(event){
+
+        const allowed = "0123456789+-*/.%";
+
+        if(allowed.includes(event.key)){
+            append(event.key);
+        }
+
+        if(event.key === "Enter"){
+            calculate();
+        }
+
+        if(event.key === "Backspace"){
+            deleteLast();
+        }
+
+        if(event.key === "Escape"){
+            clearScreen();
+        }
+    });
+
+</script>
+
+</body>
+</html>
