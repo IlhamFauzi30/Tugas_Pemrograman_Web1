@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sistem Kelulusan Siswa Modern</title>
+
+<style>
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    width: 420px;
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px cyan;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input{
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+button{
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    background: cyan;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover{
+    background: white;
+}
+
+.hasil{
+    margin-top: 20px;
+    background: #334155;
+    padding: 20px;
+    border-radius: 15px;
+    line-height: 1.8;
+}
+
+.keterangan{
+    margin-top: 10px;
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Sistem Kelulusan Siswa</h2>
+
+    <input type="text" id="nama" placeholder="Masukkan Nama Siswa">
+
+    <input type="number" id="totalPertemuan" placeholder="Total Pertemuan">
+
+    <input type="number" id="hadir" placeholder="Jumlah Kehadiran">
+
+    <input type="number" id="tugas" placeholder="Nilai Tugas (0-100)">
+
+    <input type="number" id="uts" placeholder="Nilai UTS (0-100)">
+
+    <input type="number" id="uas" placeholder="Nilai UAS (0-100)">
+
+    <button onclick="hitungKelulusan()">Hitung Kelulusan</button>
+
+    <div class="hasil" id="hasil">
+
+        Hasil akan tampil di sini...
+
+    </div>
+
+    <div class="keterangan">
+
+        Bobot Penilaian:<br>
+        Kehadiran = 10%<br>
+        Tugas = 20%<br>
+        UTS = 30%<br>
+        UAS = 40%
+
+    </div>
+
+</div>
+
+<script>
+
+function hitungKelulusan(){
+
+    let nama = document.getElementById("nama").value;
+
+    let totalPertemuan =
+        parseFloat(document.getElementById("totalPertemuan").value);
+
+    let hadir =
+        parseFloat(document.getElementById("hadir").value);
+
+    let tugas =
+        parseFloat(document.getElementById("tugas").value);
+
+    let uts =
+        parseFloat(document.getElementById("uts").value);
+
+    let uas =
+        parseFloat(document.getElementById("uas").value);
+
+    // HITUNG NILAI KEHADIRAN
+    let nilaiKehadiran = (hadir / totalPertemuan) * 100;
+
+    // HITUNG NILAI AKHIR
+    let nilaiAkhir =
+        (nilaiKehadiran * 0.10) +
+        (tugas * 0.20) +
+        (uts * 0.30) +
+        (uas * 0.40);
+
+    let grade;
+    let status;
+    let predikat;
+
+    // IF ELSE PENENTUAN GRADE
+    if(nilaiAkhir >= 90){
+
+        grade = "A";
+        status = "LULUS";
+        predikat = "Sangat Memuaskan";
+
+    }
+
+    else if(nilaiAkhir >= 80){
+
+        grade = "B";
+        status = "LULUS";
+        predikat = "Baik";
+
+    }
+
+    else if(nilaiAkhir >= 70){
+
+        grade = "C";
+        status = "LULUS BERSYARAT";
+        predikat = "Cukup";
+
+    }
+
+    else{
+
+        grade = "D";
+        status = "TIDAK LULUS";
+        predikat = "Kurang";
+
+    }
+
+    // TAMPILKAN HASIL
+    document.getElementById("hasil").innerHTML = `
+
+        <h3>Hasil Kelulusan</h3>
+
+        Nama Siswa : <b>${nama}</b><br>
+
+        Nilai Kehadiran : ${nilaiKehadiran.toFixed(2)}<br>
+
+        Nilai Tugas : ${tugas}<br>
+
+        Nilai UTS : ${uts}<br>
+
+        Nilai UAS : ${uas}<br><br>
+
+        <hr>
+
+        Nilai Akhir : <b>${nilaiAkhir.toFixed(2)}</b><br>
+
+        Grade : <b>${grade}</b><br>
+
+        Predikat : <b>${predikat}</b><br>
+
+        Status : <b>${status}</b>
+
+    `;
+}
+
+</script>
+
+</body>
+</html>

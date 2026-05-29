@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sistem Tabungan Siswa Lengkap</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.container{
+    max-width: 1200px;
+    margin: auto;
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px cyan;
+}
+
+h2,h3{
+    text-align: center;
+}
+
+input, select, button{
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+}
+
+button{
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover{
+    background: white;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td{
+    border: 1px solid #475569;
+    padding: 10px;
+    text-align: center;
+}
+
+table th{
+    background: #0f172a;
+}
+
+.riwayat{
+    margin-top: 20px;
+    background: #334155;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.search-box{
+    margin-top: 20px;
+}
+
+.hapus-btn{
+    background: red;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Sistem Tabungan Siswa Lengkap</h2>
+
+    <!-- INPUT DATA -->
+    <input type="text" id="nim"
+    placeholder="Masukkan NIM">
+
+    <input type="text" id="nama"
+    placeholder="Masukkan Nama Siswa">
+
+    <input type="number" id="jumlah"
+    placeholder="Masukkan Jumlah Tabungan">
+
+    <select id="jenis">
+
+        <option value="menabung">
+            Menabung
+        </option>
+
+        <option value="ambil">
+            Ambil Tabungan
+        </option>
+
+    </select>
+
+    <button onclick="prosesTabungan()">
+
+        Simpan Data
+
+    </button>
+
+    <!-- SEARCH DATA SISWA -->
+    <div class="search-box">
+
+        <input type="text"
+        id="search"
+        placeholder="Cari Data Siswa berdasarkan Nama atau NIM"
+        onkeyup="cariData()">
+
+    </div>
+
+    <!-- TABEL DATA -->
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>NIM</th>
+
+                <th>Nama</th>
+
+                <th>Total Tabungan</th>
+
+                <th>Status</th>
+
+                <th>Aksi</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="dataSiswa">
+
+        </tbody>
+
+    </table>
+
+    <!-- RIWAYAT -->
+    <div class="riwayat">
+
+        <h3>Riwayat Transaksi</h3>
+
+        <!-- SEARCH RIWAYAT -->
+        <input type="text"
+        id="searchRiwayat"
+        placeholder="Cari Riwayat berdasarkan Nama atau NIM"
+        onkeyup="cariRiwayat()">
+
+        <div id="riwayatData">
+
+            Belum ada transaksi...
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// ARRAY DATA SISWA
+let siswa = [];
+
+// ARRAY RIWAYAT
+let riwayat = [];
+
+// FUNCTION CARI SISWA
+function cariSiswa(nim){
+
+    return siswa.find(item => item.nim === nim);
+}
+
+// FUNCTION FORMAT TANGGAL
+function formatTanggal(){
+
+    let tanggal = new Date();
+
+    return tanggal.toLocaleString('id-ID');
+}
+
+// FUNCTION STATUS TABUNGAN
+function statusTabungan(total){
+
+    if(total >= 5000000){
+
+        return "Sultan";
+    }
+
+    else if(total >= 2000000){
+
+        return "Rajin Menabung";
+    }
+
+    else{
+
+        return "Pemula";
+    }
+}
+
+// FUNCTION TAMPILKAN DATA SISWA
+function tampilkanData(data = siswa){
+
+    let tabel =
+        document.getElementById("dataSiswa");
+
+    tabel.innerHTML = "";
+
+    data.forEach((item,index) => {
+
+        tabel.innerHTML += `
+
+            <tr>
+
+                <td>${item.nim}</td>
+
+                <td>${item.nama}</td>
+
+                <td>
+                    Rp ${item.total.toLocaleString()}
+                </td>
+
+                <td>
+                    ${statusTabungan(item.total)}
+                </td>
+
+                <td>
+
+                    <button class="hapus-btn"
+                    onclick="hapusData(${index})">
+
+                        Hapus
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+    });
+}
+
+// FUNCTION PROSES TABUNGAN
+function prosesTabungan(){
+
+    let nim =
+        document.getElementById("nim").value;
+
+    let nama =
+        document.getElementById("nama").value;
+
+    let jumlah =
+        parseFloat(document.getElementById("jumlah").value);
+
+    let jenis =
+        document.getElementById("jenis").value;
+
+    let tanggal =
+        formatTanggal();
+
+    // VALIDASI
+    if(nim === "" || nama === "" || isNaN(jumlah)){
+
+        alert("Data belum lengkap!");
+
+        return;
+    }
+
+    // CEK SISWA
+    let dataSiswa =
+        cariSiswa(nim);
+
+    // JIKA BELUM ADA
+    if(!dataSiswa){
+
+        dataSiswa = {
+
+            nim: nim,
+            nama: nama,
+            total: 0
+
+        };
+
+        siswa.push(dataSiswa);
+    }
+
+    // MENABUNG
+    if(jenis === "menabung"){
+
+        dataSiswa.total += jumlah;
+    }
+
+    // AMBIL TABUNGAN
+    else{
+
+        if(jumlah > dataSiswa.total){
+
+            alert("Saldo tidak cukup!");
+
+            return;
+        }
+
+        dataSiswa.total -= jumlah;
+    }
+
+    // SIMPAN RIWAYAT
+    riwayat.push({
+
+        tanggal: tanggal,
+        nim: nim,
+        nama: nama,
+        jenis: jenis,
+        jumlah: jumlah,
+        saldo: dataSiswa.total
+
+    });
+
+    // UPDATE TABEL
+    tampilkanData();
+
+    // TAMPILKAN RIWAYAT
+    tampilkanRiwayat();
+
+    // RESET INPUT
+    document.getElementById("jumlah").value = "";
+}
+
+// FUNCTION TAMPILKAN RIWAYAT
+function tampilkanRiwayat(data = riwayat){
+
+    let tampil =
+        document.getElementById("riwayatData");
+
+    tampil.innerHTML = "";
+
+    data.forEach(item => {
+
+        tampil.innerHTML += `
+
+            <hr>
+
+            <b>${item.tanggal}</b><br>
+
+            NIM : ${item.nim}<br>
+
+            Nama : ${item.nama}<br>
+
+            Jenis : ${item.jenis}<br>
+
+            Jumlah : 
+            Rp ${item.jumlah.toLocaleString()}<br>
+
+            Saldo Sekarang :
+            Rp ${item.saldo.toLocaleString()}<br>
+
+        `;
+    });
+}
+
+// FUNCTION HAPUS DATA
+function hapusData(index){
+
+    let konfirmasi =
+        confirm("Yakin ingin menghapus data siswa?");
+
+    if(konfirmasi){
+
+        siswa.splice(index,1);
+
+        tampilkanData();
+    }
+}
+
+// FUNCTION SEARCH DATA SISWA
+function cariData(){
+
+    let keyword =
+        document.getElementById("search")
+        .value.toLowerCase();
+
+    let hasil =
+        siswa.filter(item =>
+
+            item.nama.toLowerCase().includes(keyword)
+            ||
+
+            item.nim.toLowerCase().includes(keyword)
+
+        );
+
+    tampilkanData(hasil);
+}
+
+// FUNCTION SEARCH RIWAYAT
+function cariRiwayat(){
+
+    let keyword =
+        document.getElementById("searchRiwayat")
+        .value.toLowerCase();
+
+    let hasil =
+        riwayat.filter(item =>
+
+            item.nama.toLowerCase().includes(keyword)
+            ||
+
+            item.nim.toLowerCase().includes(keyword)
+
+        );
+
+    tampilkanRiwayat(hasil);
+}
+
+</script>
+
+</body>
+</html>
