@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sistem Manajemen Data Mahasiswa</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #eef2f7;
+            margin: 0;
+            padding: 24px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* container utama */
+        .dashboard {
+            max-width: 1300px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 28px 30px 36px 30px;
+            transition: all 0.2s;
+        }
+
+        /* judul & header */
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+            background: linear-gradient(135deg, #1E3C72, #2A5298);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .subhead {
+            color: #4a627a;
+            border-left: 4px solid #2a7faa;
+            padding-left: 14px;
+            margin: 8px 0 28px 0;
+            font-weight: 500;
+        }
+
+        /* form card */
+        .form-card {
+            background: #f9fafc;
+            border-radius: 24px;
+            padding: 20px 24px;
+            margin-bottom: 38px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px 28px;
+            align-items: end;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1e2f41;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .input-group input, .input-group select {
+            padding: 12px 14px;
+            border-radius: 18px;
+            border: 1.5px solid #dce3ec;
+            background: white;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            outline: none;
+            font-weight: 500;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: #2a7faa;
+            box-shadow: 0 0 0 3px rgba(42, 127, 170, 0.2);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #edf2f7;
+            color: #1f3a5f;
+        }
+
+        button.primary {
+            background: #1f6392;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        button.primary:hover {
+            background: #0e4a70;
+            transform: translateY(-1px);
+        }
+
+        button.secondary {
+            background: #e9ecef;
+            border: 1px solid #cbd5e1;
+        }
+
+        button.secondary:hover {
+            background: #dee2e6;
+        }
+
+        button.danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        button.danger:hover {
+            background: #fecaca;
+        }
+
+        button.warning {
+            background: #fff3e3;
+            color: #b45309;
+        }
+
+        button.warning:hover {
+            background: #ffedd5;
+        }
+
+        /* tabel wrapper */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid #e9edf2;
+            background: white;
+            margin-top: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 16px 16px;
+            background-color: #f1f5f9;
+            color: #1e2a3e;
+            font-weight: 700;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #ecf3fa;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            border-radius: 40px;
+        }
+
+        .edit-btn {
+            background: #e6f7ff;
+            color: #0c6b7e;
+        }
+
+        .delete-btn {
+            background: #ffe9e9;
+            color: #b91c1c;
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 40px;
+            color: #6c7a91;
+            font-style: italic;
+        }
+
+        .search-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 4px 12px;
+            border: 1px solid #cfdfed;
+            border-radius: 60px;
+        }
+
+        .search-box input {
+            border: none;
+            padding: 10px 8px;
+            width: 220px;
+            font-size: 0.85rem;
+            background: transparent;
+            outline: none;
+        }
+
+        .search-box button {
+            background: transparent;
+            padding: 6px 14px;
+            box-shadow: none;
+            color: #1f6392;
+        }
+
+        .stat-badge {
+            display: inline-block;
+            background: #e2f0fa;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        hr {
+            margin: 20px 0 10px;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #e0e7ef, transparent);
+        }
+
+        footer {
+            font-size: 0.7rem;
+            text-align: right;
+            color: #8aa0b5;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 650px) {
+            .dashboard {
+                padding: 18px;
+            }
+            th, td {
+                padding: 10px 8px;
+            }
+            .action-buttons {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <h1>📘 SISDATA MAHASISWA</h1>
+    <div class="subhead">Kelola data akademik — terintegrasi array object</div>
+
+    <!-- FORM INPUT + UPDATE -->
+    <div class="form-card">
+        <div class="form-grid">
+            <div class="input-group">
+                <label>NIM <span style="font-weight:normal">(unik)</span></label>
+                <input type="text" id="nimInput" placeholder="Contoh: 2024001" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="namaInput" placeholder="Nama mahasiswa" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>Jurusan</label>
+                <select id="jurusanSelect">
+                    <option value="">Pilih Jurusan ▼</option>
+                    <option value="Teknik Informatika">Teknik Informatika</option>
+                    <option value="Sistem Informasi">Sistem Informasi</option>
+                    <option value="Teknik Elektro">Teknik Elektro</option>
+                    <option value="Teknik Mesin">Teknik Mesin</option>
+                    <option value="Manajemen">Manajemen</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Fakultas</label>
+                <select id="fakultasSelect">
+                    <option value="">Pilih Fakultas ▼</option>
+                    <option value="Ilmu Komputer">Ilmu Komputer</option>
+                    <option value="Teknik">Teknik</option>
+                    <option value="Ekonomi & Bisnis">Ekonomi & Bisnis</option>
+                    <option value="Hukum">Hukum</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button id="btnTambah" class="primary">➕ Tambah Mahasiswa</button>
+                <button id="btnUpdate" class="secondary">🔄 Update Data Mahasiswa</button>
+                <button id="btnCancelEdit" class="secondary" style="background:#f1f3f5;">✖ Batal Edit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pencarian -->
+    <div class="search-area">
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Cari NIM / Nama / Jurusan / Fakultas..." autocomplete="off">
+            <button id="clearSearchBtn" style="color:#6c86a3;">✖</button>
+        </div>
+    </div>
+
+    <!-- Daftar Mahasiswa + tabel -->
+    <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap:wrap; margin-bottom: 10px;">
+        <strong style="font-size:1.2rem;">📋 Daftar Mahasiswa</strong>
+        <span id="recordCount" class="stat-badge">0 data</span>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>NIM</th><th>Nama</th><th>Jurusan</th><th>Fakultas</th><th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr class="empty-row"><td colspan="5">Belum ada data. Silakan tambah mahasiswa.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>Data tersimpan di memori (array object) | Edit akan mengisi form, lalu tekan Update</footer>
+</div>
+
+<script>
+    // ---------- ARRAY OBJECT PENAMPUNG DATA ----------
+    let students = [];  // setiap objek: { nim, nama, jurusan, fakultas }
+
+    // state untuk editing: menyimpan NIM dari record yang sedang diedit
+    let currentEditNim = null;
+
+    // DOM Elements
+    const nimInput = document.getElementById('nimInput');
+    const namaInput = document.getElementById('namaInput');
+    const jurusanSelect = document.getElementById('jurusanSelect');
+    const fakultasSelect = document.getElementById('fakultasSelect');
+    const btnTambah = document.getElementById('btnTambah');
+    const btnUpdate = document.getElementById('btnUpdate');
+    const btnCancelEdit = document.getElementById('btnCancelEdit');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const tableBody = document.getElementById('tableBody');
+    const recordCountSpan = document.getElementById('recordCount');
+
+    // ========== FUNGSI UTILITY ==========
+    // reset form sepenuhnya (bersih + cancel edit mode)
+    function resetForm(clearEditMode = true) {
+        nimInput.value = '';
+        namaInput.value = '';
+        jurusanSelect.value = '';
+        fakultasSelect.value = '';
+        if (clearEditMode) {
+            currentEditNim = null;
+        }
+        // gaya visual opsional: hapus highlight di tombol update
+        btnUpdate.style.opacity = '1';
+    }
+
+    // validasi input form (semua field harus diisi, NIM minimal 1 karakter)
+    function validateFormForAdd() {
+        const nim = nimInput.value.trim();
+        const nama = namaInput.value.trim();
+        const jurusan = jurusanSelect.value;
+        const fakultas = fakultasSelect.value;
+
+        if (!nim || !nama || !jurusan || !fakultas) {
+            alert("⚠️ Semua field (NIM, Nama, Jurusan, Fakultas) harus diisi!");
+            return false;
+        }
+        // cek apakah NIM sudah ada (kecuali mode update, dilarang duplikat saat tambah)
+        // untuk pengecekan add saja: jika ada NIM yang sama (case insensitive)
+        const isExist = students.some(s => s.nim === nim);
+        if (isExist && currentEditNim === null) {
+            alert(`❌ Gagal tambah! NIM "${nim}" sudah terdaftar. Gunakan NIM unik.`);
+            return false;
+        }
+        // ketika dalam mode update, pengecekan duplikat berbeda (tidak boleh konflik dengan selain dirinya sendiri)
+        if (currentEditNim !== null && currentEditNim !== nim) {
+            const conflict = students.some(s => s.nim === nim);
+            if (conflict) {
+                alert(`❌ NIM "${nim}" sudah digunakan mahasiswa lain. Edit tidak dapat merubah ke NIM duplikat.`);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // render tabel berdasarkan array students (dan filter pencarian)
+    function renderTable() {
+        const keyword = searchInput.value.trim().toLowerCase();
+        let filteredStudents = [...students];
+        
+        if (keyword !== "") {
+            filteredStudents = students.filter(student => {
+                return (
+                    student.nim.toLowerCase().includes(keyword) ||
+                    student.nama.toLowerCase().includes(keyword) ||
+                    student.jurusan.toLowerCase().includes(keyword) ||
+                    student.fakultas.toLowerCase().includes(keyword)
+                );
+            });
+        }
+
+        // update jumlah record
+        recordCountSpan.innerText = `${filteredStudents.length} data${filteredStudents.length !== 1 ? '' : ''}`;
+
+        if (filteredStudents.length === 0) {
+            tableBody.innerHTML = `<tr class="empty-row"><td colspan="5">📭 Tidak ada data yang cocok / kosong. Tambah mahasiswa.</td></tr>`;
+            return;
+        }
+
+        let html = '';
+        filteredStudents.forEach(student => {
+            html += `
+                <tr>
+                    <td style="font-weight:500;">${escapeHtml(student.nim)}</td>
+                    <td>${escapeHtml(student.nama)}</td>
+                    <td>${escapeHtml(student.jurusan)}</td>
+                    <td>${escapeHtml(student.fakultas)}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-nim="${escapeHtml(student.nim)}">✏️ Edit</button>
+                        <button class="delete-btn" data-nim="${escapeHtml(student.nim)}">🗑️ Hapus</button>
+                    </td>
+                </tr>
+            `;
+        });
+        tableBody.innerHTML = html;
+
+        // attach event listener untuk tombol edit dan hapus yang dinamis
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const nim = btn.getAttribute('data-nim');
+                handleEdit(nim);
+            });
+        });
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const nim = btn.getAttribute('data-nim');
+                handleDelete(nim);
+            });
+        });
+    }
+
+    // simple XSS protection
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // fungsi tambah data (CREATE)
+    function tambahMahasiswa() {
+        // reset mode edit dulu agar validasi check duplikat untuk add
+        if (currentEditNim !== null) {
+            // jika sedang mode edit, kita cancel mode edit biar tidak membingungkan
+            if (confirm("Anda sedang dalam mode edit. Batalkan edit dan tambah data baru?")) {
+                cancelEditMode();
+            } else {
+                return;
+            }
+        }
+        
+        if (!validateFormForAdd()) return;
+        
+        const nim = nimInput.value.trim();
+        const nama = namaInput.value.trim();
+        const jurusan = jurusanSelect.value;
+        const fakultas = fakultasSelect.value;
+        
+        // validasi duplikat ulang (safety)
+        if (students.some(s => s.nim === nim)) {
+            alert(`NIM ${nim} sudah ada! Tidak bisa tambah duplikat.`);
+            return;
+        }
+        
+        const newStudent = { nim, nama, jurusan, fakultas };
+        students.push(newStudent);
+        resetForm(true);
+        renderTable();
+        alert(`✅ Berhasil menambahkan mahasiswa: ${nama} (${nim})`);
+    }
+
+    // handle edit: populate form dengan data yang dipilih, set mode edit
+    function handleEdit(nim) {
+        const student = students.find(s => s.nim === nim);
+        if (!student) {
+            alert("Data tidak ditemukan!");
+            return;
+        }
+        // isi form
+        nimInput.value = student.nim;
+        namaInput.value = student.nama;
+        jurusanSelect.value = student.jurusan;
+        fakultasSelect.value = student.fakultas;
+        currentEditNim = student.nim;
+        
+        // beri feedback visual (ubah tombol update agar lebih menonjol)
+        btnUpdate.style.background = "#2a7faa";
+        btnUpdate.style.border = "1px solid #1e6a8a";
+        btnUpdate.innerText = "✅ Update Data (tersimpan)";
+        // scroll sedikit ke form
+        document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // update data mahasiswa berdasarkan currentEditNim
+    function updateMahasiswa() {
+        if (currentEditNim === null) {
+            alert("⚠️ Tidak ada data yang sedang diedit. Silakan klik Edit pada salah satu record terlebih dahulu, atau gunakan tambah.");
+            return;
+        }
+        
+        // validasi field
+        const nimBaru = nimInput.value.trim();
+        const namaBaru = namaInput.value.trim();
+        const jurusanBaru = jurusanSelect.value;
+        const fakultasBaru = fakultasSelect.value;
+        
+        if (!nimBaru || !namaBaru || !jurusanBaru || !fakultasBaru) {
+            alert("Harap isi semua data (NIM, Nama, Jurusan, Fakultas) sebelum update!");
+            return;
+        }
+        
+        // Cek duplikasi NIM selain dirinya sendiri
+        const isConflict = students.some(s => s.nim === nimBaru && s.nim !== currentEditNim);
+        if (isConflict) {
+            alert(`Gagal update! NIM "${nimBaru}" sudah digunakan oleh mahasiswa lain.`);
+            return;
+        }
+        
+        // cari index student lama berdasarkan currentEditNim
+        const index = students.findIndex(s => s.nim === currentEditNim);
+        if (index === -1) {
+            alert("Error: data asli tidak ditemukan, mungkin sudah terhapus.");
+            cancelEditMode();
+            renderTable();
+            return;
+        }
+        
+        // update object
+        students[index] = {
+            nim: nimBaru,
+            nama: namaBaru,
+            jurusan: jurusanBaru,
+            fakultas: fakultasBaru
+        };
+        
+        // jika NIM berubah, edit mode harus menyesuaikan (gunakan nim baru sebagai currentEditNim)
+        currentEditNim = nimBaru;
+        
+        resetForm(true); // clear form dan keluar dari mode edit
+        // reset tampilan tombol update
+        btnUpdate.style.background = "";
+        btnUpdate.innerText = "🔄 Update Data Mahasiswa";
+        renderTable();
+        alert(`✏️ Data mahasiswa berhasil diperbarui!`);
+    }
+
+    // hapus data mahasiswa
+    function handleDelete(nim) {
+        const student = students.find(s => s.nim === nim);
+        if (!student) return;
+        
+        const confirmDelete = confirm(`Yakin ingin menghapus mahasiswa "${student.nama}" (NIM: ${nim})?`);
+        if (confirmDelete) {
+            students = students.filter(s => s.nim !== nim);
+            // jika menghapus data yang sedang dalam mode edit, batalkan mode edit
+            if (currentEditNim === nim) {
+                cancelEditMode();
+            }
+            renderTable();
+            alert(`🗑️ Mahasiswa dengan NIM ${nim} berhasil dihapus.`);
+        }
+    }
+    
+    // batal edit: reset form dan keluar dari edit mode
+    function cancelEditMode() {
+        if (currentEditNim !== null) {
+            currentEditNim = null;
+            resetForm(true);
+            btnUpdate.style.background = "";
+            btnUpdate.innerText = "🔄 Update Data Mahasiswa";
+            // optional info
+        } else {
+            resetForm(true);
+        }
+        // bersihkan highlight apapun
+        btnUpdate.style.background = "";
+        btnUpdate.innerText = "🔄 Update Data Mahasiswa";
+    }
+
+    // fungsi untuk pencarian realtime ketika mengetik
+    function onSearchInput() {
+        renderTable();  // karena render menggunakan keyword filter dari searchInput.value
+    }
+    
+    function clearSearch() {
+        searchInput.value = '';
+        renderTable();
+    }
+    
+    // inisialisasi data contoh (mengikuti contoh tampilan soal: "JOHN DOE", "NAME")
+    function initSampleData() {
+        // Contoh data agar terlihat seperti screenshot deskripsi (bisa dihapus atau dibiarkan)
+        // Disesuaikan dengan kebutuhan: NIM 123, 124 dsb
+        const hasData = students.length === 0;
+        if (hasData) {
+            students.push({
+                nim: "123",
+                nama: "JOHN DOE",
+                jurusan: "Teknik Informatika",
+                fakultas: "Ilmu Komputer"
+            });
+            students.push({
+                nim: "124",
+                nama: "NAME",
+                jurusan: "Teknik Elektro",
+                fakultas: "Teknik"
+            });
+        }
+        renderTable();
+    }
+    
+    // --- event listeners & initial load ---
+    function bindEvents() {
+        btnTambah.addEventListener('click', tambahMahasiswa);
+        btnUpdate.addEventListener('click', updateMahasiswa);
+        btnCancelEdit.addEventListener('click', () => {
+            cancelEditMode();
+            // tampilkan pesan ringan opsional
+        });
+        searchInput.addEventListener('input', onSearchInput);
+        clearSearchBtn.addEventListener('click', clearSearch);
+        
+        // validasi untuk mencegah submit form dengan enter bisa diatur, namun tidak wajib
+        const formInputs = [nimInput, namaInput, jurusanSelect, fakultasSelect];
+        formInputs.forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (currentEditNim !== null) {
+                        updateMahasiswa();
+                    } else {
+                        tambahMahasiswa();
+                    }
+                }
+            });
+        });
+    }
+    
+    // inisialisasi utama
+    function init() {
+        bindEvents();
+        initSampleData();   // memuat contoh: JOHN DOE & NAME, plus bisa ditambah user.
+        resetForm(true);
+    }
+    
+    init();
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Object Mahasiswa</title>
+</head>
+<body>
+
+    <h1>Belajar JavaScript Object Mahasiswa</h1>
+    <p>Silakan buka <strong>Console</strong> di Developer Tools (Tekan F12 -> Pilih tab Console) untuk melihat hasilnya.</p>
+
+    <script>
+        // =========================================================
+        // 1. CONTOH JAVASCRIPT OBJECT TUNGGAL (Satu Mahasiswa)
+        // =========================================================
+        console.log("=== DATA MAHASISWA TUNGGAL ===");
+        
+        let mahasiswa = {
+            nim: "202601001",
+            nama: "Ilham Fauzi",
+            jurusan: "Teknik Informatika",
+            fakultas: "Ilmu Komputer"
+        };
+
+        // Menampilkan objek utuh
+        console.log(mahasiswa);
+
+        // Mengakses properti tertentu secara spesifik
+        console.log("NIM      : " + mahasiswa.nim);
+        console.log("Nama     : " + mahasiswa.nama);
+        console.log("Jurusan  : " + mahasiswa.jurusan);
+        console.log("Fakultas : " + mahasiswa.fakultas);
+        
+        console.log("\n"); // Memberi jarak baris di console
+
+
+        // =========================================================
+        // 2. CONTOH ARRAY OF OBJECTS (Banyak Mahasiswa + Looping)
+        // =========================================================
+        console.log("=== DAFTAR BANYAK MAHASISWA (ARRAY OF OBJECTS) ===");
+
+        let daftarMahasiswa = [
+            {
+                nim: "202601001",
+                nama: "Ilham Fauzi",
+                jurusan: "Teknik Informatika",
+                fakultas: "Ilmu Komputer"
+            },
+            {
+                nim: "202601002",
+                nama: "Abelli Fikri",
+                jurusan: "Sistem Informasi",
+                fakultas: "Ilmu Komputer"
+            },
+            {
+                nim: "202601003",
+                nama: "Royyan Tsubaisa",
+                jurusan: "Teknik Elektro",
+                fakultas: "Teknik"
+            }
+        ];
+
+        // Menampilkan data semua mahasiswa menggunakan perulangan (looping) for
+        for (let i = 0; i < daftarMahasiswa.length; i++) {
+            console.log(`Mahasiswa Ke-${i + 1}:`);
+            console.log(`- NIM      : ${daftarMahasiswa[i].nim}`);
+            console.log(`- Nama     : ${daftarMahasiswa[i].nama}`);
+            console.log(`- Jurusan  : ${daftarMahasiswa[i].jurusan}`);
+            console.log(`- Fakultas : ${daftarMahasiswa[i].fakultas}`);
+            console.log("-----------------------------------------");
+        }
+    </script>
+    
+</body>
+</html>
