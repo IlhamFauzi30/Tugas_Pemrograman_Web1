@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.game-header h1 {
+    font-size: 2em;
+    color: #ffd700;
+    text-shadow: 3px 3px 0 #b8860b;
+    letter-spacing: 2px;
+}
+
+.game-header p {
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+.game-wrapper {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Game Board */
+.game-board {
+    background: #0a0a1a;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#tetrisCanvas {
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Info Panel */
+.info-panel {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 200px;
+    backdrop-filter: blur(10px);
+}
+
+.info-card {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.info-card h3 {
+    font-size: 14px;
+    color: #ffd700;
+    margin-bottom: 5px;
+}
+
+.info-card p {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Next Piece */
+.next-piece {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.next-piece h3 {
+    font-size: 14px;
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+#nextCanvas {
+    background: #0a0a1a;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Controls */
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.ctrl-btn {
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ctrl-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.ctrl-btn:active {
+    transform: translateY(0);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+}
+
+.btn-start {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.btn-pause {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.btn-reset {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Game Status */
+.game-status {
+    text-align: center;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+/* Instructions */
+.instructions {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.instructions p {
+    color: #ccc;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.instructions p:first-child {
+    color: #ffd700;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+    .game-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .info-panel {
+        width: 100%;
+        max-width: 320px;
+    }
+    
+    .controls {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .ctrl-btn {
+        padding: 10px;
+        font-size: 16px;
+    }
+}

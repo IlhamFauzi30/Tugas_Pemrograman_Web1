@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Sederhana - Classic Block Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>🧩 TETRIS SIMPLE 🧩</h1>
+            <p>Gunakan tombol panah untuk bermain!</p>
+        </div>
+
+        <div class="game-wrapper">
+            <!-- Main Game Board -->
+            <div class="game-board">
+                <canvas id="tetrisCanvas" width="300" height="600"></canvas>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="info-panel">
+                <div class="info-card">
+                    <h3>🎮 SKOR</h3>
+                    <p id="score">0</p>
+                </div>
+                <div class="info-card">
+                    <h3>🏆 TERTINGGI</h3>
+                    <p id="highScore">0</p>
+                </div>
+                <div class="info-card">
+                    <h3>📊 LEVEL</h3>
+                    <p id="level">1</p>
+                </div>
+                <div class="info-card">
+                    <h3>🧩 BARIS</h3>
+                    <p id="lines">0</p>
+                </div>
+
+                <!-- Next Piece Preview -->
+                <div class="next-piece">
+                    <h3>⬇️ NEXT PIECE</h3>
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <button id="leftBtn" class="ctrl-btn">◀</button>
+                    <button id="rightBtn" class="ctrl-btn">▶</button>
+                    <button id="rotateBtn" class="ctrl-btn">🔄</button>
+                    <button id="downBtn" class="ctrl-btn">▼</button>
+                    <button id="dropBtn" class="ctrl-btn">⬇️⬇️</button>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="startBtn" class="btn btn-start">▶ MULAI</button>
+                    <button id="pauseBtn" class="btn btn-pause">⏸️ PAUSE</button>
+                    <button id="resetBtn" class="btn btn-reset">🔄 RESET</button>
+                </div>
+
+                <div class="game-status" id="gameStatus">
+                    ⭐ KLIK MULAI UNTUK BERMAIN ⭐
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <p>🎮 <strong>Cara Bermain:</strong></p>
+            <p>◀ ▶ : Geser kiri/kanan | 🔄 : Rotasi | ▼ : Turun cepat | ⬇️⬇️ : Langsung jatuh</p>
+            <p>✨ Susun blok membentuk baris penuh untuk mendapat skor! ✨</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
